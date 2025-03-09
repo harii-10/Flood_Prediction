@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Prediction</title>
+</head>
+<body>
+    <h1>Flood Prediction System</h1>
+    <button onclick="fetchPrediction()">Check Flood Risk</button>
+    <p><strong>Temperature:</strong> <span id="temp">--</span>°C</p>
+    <p><strong>Humidity:</strong> <span id="humidity">--</span>%</p>
+    <p><strong>Rainfall:</strong> <span id="rain">--</span> mm</p>
+    <p><strong>Flood Risk:</strong> <span id="flood-risk">--</span></p>
+
+    <script>
+        function fetchPrediction() {
+            fetch("/predict_flood")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("temp").textContent = data.weather.temperature;
+                    document.getElementById("humidity").textContent = data.weather.humidity;
+                    document.getElementById("rain").textContent = data.weather.rainfall;
+                    document.getElementById("flood-risk").textContent = data.final_prediction;
+                })
+                .catch(error => {
+                    console.error("Error fetching prediction:", error);
+                    alert("Error fetching prediction. Check the console for details.");
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Flask
+requests
+numpy
+scikit-learn
+joblib
+twilio
+flask-mail
+python-dotenv
